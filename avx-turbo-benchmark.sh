@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Script to run AVX-Turbo benchmarks with various configurations
 # Created on: May 20, 2025

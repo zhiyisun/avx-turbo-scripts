@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Script to download and build the AVX-Turbo project
 # Created on: May 20, 2025
