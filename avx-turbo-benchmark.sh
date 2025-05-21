@@ -39,7 +39,7 @@ echo "Running default test..."
 DEFAULT_LOG="${LOG_DIR}/avx_turbo_default_${TIMESTAMP}.log"
 echo "Default test results will be saved to: ${DEFAULT_LOG}"
 cd "${REPO_DIR}"
-sudo ./avx-turbo --warmup-ms=1000 > "${DEFAULT_LOG}" 2>&1
+sudo ./avx-turbo > "${DEFAULT_LOG}" 2>&1
 echo "Default test completed."
 
 # Function to run benchmark with specified core allocations
