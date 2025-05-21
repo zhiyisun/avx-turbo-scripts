@@ -55,7 +55,12 @@ run_benchmark() {
     
     cd "${REPO_DIR}"
     sudo ./avx-turbo --spec=${spec_arg} --warmup-ms=1000 > "${log_file}" 2>&1
-    sleep 1
+    
+    # Check log file content and rerun if necessary
+    while ! grep -q "A/M-MHz" "${log_file}"; do
+        echo "Log file ${log_file} does not contain 'A/M-MHz'. Rerunning test..."
+        sudo ./avx-turbo --spec=${spec_arg} --warmup-ms=1000 > "${log_file}" 2>&1
+    done
     
     echo "Completed test with ${scalar_cores} scalar cores, ${avx512_cores} AVX512 cores"
 }
@@ -95,7 +100,13 @@ for scalar_cores in $(seq 1 $((TOTAL_PHYSICAL_CORES - 1))); do
         
         cd "${REPO_DIR}"
         sudo ./avx-turbo --spec=scalar_iadd/${scalar_cores},avx512_iadd/${avx512_cores} --warmup-ms=1000 > "${log_file}" 2>&1
-        sleep 1
+
+        # Check log file content and rerun if necessary
+        while ! grep -q "A/M-MHz" "${log_file}"; do
+            echo "Log file ${log_file} does not contain 'A/M-MHz'. Rerunning server-wide test..."
+            sudo ./avx-turbo --spec=scalar_iadd/${scalar_cores},avx512_iadd/${avx512_cores} --warmup-ms=1000 > "${log_file}" 2>&1
+        done
+
         echo "Completed server-wide test with ${scalar_cores} scalar cores, ${avx512_cores} AVX512 cores"
     fi
 done
