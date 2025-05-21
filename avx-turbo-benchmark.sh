@@ -5,8 +5,8 @@
 
 set -e  # Exit immediately if a command exits with a non-zero status
 
-cpupower frequency-set -r -g performance
-cpupower idle-set -d 2
+sudo cpupower frequency-set -r -g performance
+sudo cpupower idle-set -d 2
 
 # Define working directory and repository directory
 WORK_DIR=$(pwd)
